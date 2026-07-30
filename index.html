@@ -39,7 +39,7 @@
 
                 console.log("3. Initial mpg chart");
 
-                const mpg_graph = d3.select('#mpg_chart')
+                mpg_graph = d3.select('#mpg_chart')
                     .selectAll('line')
                     .data(data)
                     .enter()
