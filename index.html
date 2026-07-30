@@ -33,9 +33,23 @@
                 const height = 200;
                 const margin = 50;
 
-                d3.select('#mpg_chart')
-                    .selectAll('p
-                
+                const mpg_graph = d3.select('#mpg_chart')
+                    .attr("width", width + margin * 2)
+                    .attr("height", height + margin * 2);
+
+                console.log("3. Initial mpg chart");
+
+                const mpg_graph = d3.select('#mpg_chart')
+                    .selectAll('line')
+                    .data(data)
+                    .enter()
+                    .append("line")
+                        .attr("d", d3.line()
+                              .x(d => xScale(d.Year)
+                              .y(d => yScale(d.Mean_Cmb_MPG)
+                             )
+
+                console.log("4. Initial mpg chart");
             }
         </script>
     </body>
