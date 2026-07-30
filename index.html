@@ -57,6 +57,15 @@
                     .attr("d", lineGenerator);
 
                 console.log("4. Initial mpg chart");
+
+                svg.append('g')
+                    .attr("transform", "translate(" + margin + "," + margin + ")")
+                    .call(d3.axisLeft(yScale));
+
+                svg.append('g')
+                    .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
+                    .call(d3.axisBottom(xScale));
+                
             }
         </script>
     </body>
