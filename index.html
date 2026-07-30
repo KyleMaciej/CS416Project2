@@ -39,6 +39,7 @@
                 const yScale = d3.scaleLinear().domain([0, 45]).range([height, 0]);
 
                 const mpg_graph = d3.select('#mpg_chart')
+                    .append('svg')
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
 
