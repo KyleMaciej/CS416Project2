@@ -7,22 +7,17 @@
     <body onload='init()'>
         <script>
             async function init() {
-                console.log("1. Starting to fetch CSV...");
-                const data = await d3.csv(
-                    "large_car_dataset.csv"
+
+                const mpg_data = await d3.csv(
+                    "clean_data/average_mpg_by_year.csv"
                 )
-                console.log("2. CSV fetched successfully! Total rows:", data.length);
-                console.log("3. First row content:", data[0]);
-                d3.select('body')
-                .selectAll('p')
-                .data(data)
-                .enter()
-                .append('p')
-                    .html(
-                        function(d,i) {
-                            return 'item ' + d.MSRP;
-                        }
-                    );
+                console.log("1. Load MPG Data");
+
+                const body_type_data = await d3.csv(
+                    "clean_data/body_type_proportion_per_year.csv"
+                )
+                
+                console.log("2. Load Body Type Data");
             }
         </script>
     </body>
