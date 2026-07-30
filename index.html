@@ -7,9 +7,12 @@
     <body onload='init()'>
         <script>
             async function init() {
+                console.log("1. Starting to fetch CSV...");
                 const data = await d3.csv(
                     "large_cars_dataset.csv"
                 )
+                console.log("2. CSV fetched successfully! Total rows:", data.length);
+                console.log("3. First row content:", data[0]);
                 d3.select('body')
                 .selectAll('p')
                 .data(data)
