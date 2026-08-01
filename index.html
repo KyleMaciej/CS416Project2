@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <script src='https://jsdelivr.net'></script>
+        <script src='https://d3js.org/d3.v5.min.js'></script>
         <style> 
             line {
                 fill: none;
@@ -77,7 +77,7 @@
                     .attr("height", height + margin * 2);
 
                 const series = d3.stack()
-                    .keys(d3.union(body_type_data.map(d => d.veh_class)))
+                    .keys(new Set(body_type_data.map(d => d.veh_class)))
                     .value(([, group], key) => group.get(key).proportion)
                    (d3.index(data, d => d.year, d => d.veh_class));
 
