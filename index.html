@@ -49,14 +49,12 @@
                     .x(d => xScale(d.Year))
                     .y(d => yScale(d.Mean_Cmb_MPG));
 
-                mpg_graph.append('g')
-                     .attr("transform", "translate("+margin+","+margin+")")
-
                 mpg_graph.append("path")
                     .datum(mpg_data) 
                     .attr("fill", "none")
                     .attr("stroke", "currentColor")
                     .attr("stroke-width", 1.5)
+                    .attr("transform", "translate("+margin+","+margin+")")
                     .attr("d", lineGenerator);
 
                 console.log("4. Initial mpg chart");
