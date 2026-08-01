@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <script src='https://d3js.org/d3.v5.min.js'></script>
+        <script src='https://jsdelivr.net'></script>
         <style> 
             line {
                 fill: none;
@@ -17,6 +17,7 @@
         
         <script>
             async function init() {
+                // https://d3js.org/d3.v5.min.js
 
                 // Load Data
                 const mpg_data = await d3.csv(
@@ -64,6 +65,7 @@
                 mpg_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
                     .call(d3.axisBottom(xScale))
+                    .selectAll("text")
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
 
