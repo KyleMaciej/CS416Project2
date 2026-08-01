@@ -75,12 +75,17 @@
                     .append('svg')
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
-                //proportion
-                //proportion
+
+                const groupedData = d3.group(
+                    body_type_data,
+                    d => +d.Year,
+                    d => d.veh_class
+                );
+                
                 const series = d3.stack()
                     .keys(d3.union(body_type_data.map(d => d.veh_class)))
-                    .value(([, group], key) => group.get(key)?.proportion || 0)
-                   (d3.index(body_type_data, d => d.Year, d => d.veh_class));
+                    .value(([year, group], key) => group.get(key)?.[0]?.proportion || 0)
+                    (groupedData);
 
                 console.log("5. series initiated")
 
