@@ -49,6 +49,9 @@
                     .x(d => xScale(d.Year))
                     .y(d => yScale(d.Mean_Cmb_MPG));
 
+                mpg_graph.append('g')
+                     .attr("transform", "translate("+margin+","+margin+")")
+
                 mpg_graph.append("path")
                     .datum(mpg_data) 
                     .attr("fill", "none")
