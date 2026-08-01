@@ -80,8 +80,7 @@
                 const series = d3.stack()
                     .keys(d3.union(body_type_data.map(d => d.veh_class)))
                     .value(([, group], key) => group.get(key)?.proportion || 0)
-                   (d3.index(body_type_data, d => d.Year, d => d.veh_class))
-                    .order(d3.stackOrderDescending);
+                   (d3.index(body_type_data, d => d.Year, d => d.veh_class));
 
                 console.log("5. series initiated")
 
