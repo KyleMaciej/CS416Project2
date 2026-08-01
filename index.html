@@ -18,16 +18,14 @@
         <script>
             async function init() {
 
+                // Load Data
                 const mpg_data = await d3.csv(
                     "clean_data/average_mpg_by_year.csv"
                 )
-                console.log("1. Load MPG Data");
 
                 const body_type_data = await d3.csv(
                     "clean_data/body_type_proportion_per_year.csv"
                 )
-                
-                console.log("2. Load Body Type Data");
 
                 const width = 200;
                 const height = 200;
@@ -65,7 +63,23 @@
 
                 mpg_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
-                    .call(d3.axisBottom(xScale));
+                    .call(d3.axisBottom(xScale))
+                    .attr("transform", "rotate(-45)")
+                    .style("text-anchor", "end");
+
+                // Stacked Barchart Graph
+
+                const body_graph = d3.select('#body_type_chart')
+                    .append('svg')
+                    .attr("width", width + margin * 2)
+                    .attr("height", height + margin * 2);
+
+                const series = d3.stack()
+                    .keys(d3.union(body_type_data.map(d => d.veh_class)))
+                    .value(([, group], key) => group.get(key).proportion)
+                   (d3.index(data, d => d.year, d => d.veh_class));
+
+                console.log("5. series initiated")
                 
             }
         </script>
