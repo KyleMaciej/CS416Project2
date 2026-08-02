@@ -222,15 +222,20 @@
                     .attr("height", height + margin * 2);
 
                 //Reusing xScale
-                const user_y_scale = d3.scaleLinear().domain([0,100]).range([height, 0]);
+                const user_y_scale_left = d3.scaleLinear().range([height, 0]);
+                const user_y_scale_right = d3.scaleLinear().range([height, 0]);
+                
+                const user_line_right = d3.line()
+                    .x(d => x(d.year))
+                    .y(d => y(user_y_scale_right(d.val)));
+
+                const user_line_left = d3.line()
+                    .x(d => x(d.year))
+                    .y(d => y(user_y_scale_left(d.val)));
 
                 const user_color = d3.scaleOrdinal()
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
                     .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
-
-                const user_line = d3.line()
-                    .x(d => x(d.year))
-                    .y(d => y(d.val));
 
                 user_interface_graph.selectAll("UserLines")
                     .data(user_interface_data)
@@ -242,25 +247,72 @@
                         .attr("d", d => user_line(d.values));
 
 
-                function update(){
+                let selectedQueue = ["mpg_data", "electricity_data"];
 
-                    d3.selectAll(".checkbox").each(function(d){
-                        cb = d3.select(this);
-                        grp = cb.property("value")
-
-                        if (cb.property("checked")) {
-                            user_interface_graph.selectAll("." + grp)
-                                .transition()
-                                .duration(1000)
-                                .style("opacity", 1);
+                function update() {
+                    const leftSeries = user_interface_data.find(d => d.id === selectedQueue[0]) || null;
+                    const rightSeries = user_interface_data.find(d => d.id === selectedQueue[1]) || null;
+                    if (leftSeries) {
+                        const minVal = d3.min(leftSeries.values, d => d.val);
+                        const maxVal = d3.max(leftSeries.values, d => d.val);
+                        user_y_scale_left.domain([Math.min(0, minVal), maxVal * 1.1]);
+                
+                        leftAxisG.transition().duration(1000)
+                            .style("opacity", 1)
+                            .call(d3.axisLeft(user_y_scale_left));
+                        leftAxisG.selectAll("text, path, line").style("stroke", user_color(leftSeries.id));
+                    } else {
+                        leftAxisG.transition().duration(500).style("opacity", 0);
+                    }
+                
+                    if (rightSeries) {
+                        const minVal = d3.min(rightSeries.values, d => d.val);
+                        const maxVal = d3.max(rightSeries.values, d => d.val);
+                        user_y_scale_right.domain([Math.min(0, minVal), maxVal * 1.1]);
+                
+                        rightAxisG.transition().duration(1000)
+                            .style("opacity", 1)
+                            .call(d3.axisRight(user_y_scale_right));
+                
+                        rightAxisG.selectAll("text, path, line").style("stroke", user_color(rightSeries.id));
+                    } else {
+                        rightAxisG.transition().duration(500).style("opacity", 0);
+                    }
+                    user_interface_data.forEach(series => {
+                        const pathSelection = user_interface_graph.selectAll("." + series.id);
+                
+                        if (series.id === selectedQueue[0]) {
+                            pathSelection.transition().duration(1000)
+                                .style("opacity", 1)
+                                .attr("d", user_line_left(series.values));
+                
+                        } else if (series.id === selectedQueue[1]) {
+                            pathSelection.transition().duration(1000)
+                                .style("opacity", 1)
+                                .attr("d", user_line_right(series.values));
+                
                         } else {
-                            user_interface_graph.selectAll("." + grp)
-                                .transition()
-                                .duration(1000)
+                            pathSelection.transition().duration(1000)
                                 .style("opacity", 0);
                         }
-                    })
+                    });
                 }
+
+                d3.selectAll(".checkbox").on("change", function() {
+                    const grp = this.value;
+                
+                    if (this.checked) {
+                        selectedQueue.push(grp);
+                        if (selectedQueue.length > 2) {
+                            const removed = selectedQueue.shift();
+                            d3.select(`.checkbox[value='${removed}']`).property("checked", false);
+                        }
+                    } else {
+                        selectedQueue = selectedQueue.filter(id => id !== grp);
+                    }
+                
+                    update();
+                });
 
                 d3.selectAll(".checkbox").on("change", update);
                 update();
