@@ -237,8 +237,15 @@
                         .attr("fill", "none")
                         .attr("stroke-width", 2)
                         .attr("stroke", d => user_color(d.id))
-                        .attr("d", d -> user_line(d.values));
+                        .attr("d", d => user_line(d.values));
                         .style("opacity", 0);
+
+                user_interface_graph.append('g')
+                    .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
+                    .call(d3.axisBottom(xScale))
+                    .selectAll("text")
+                    .attr("transform", "rotate(-45)")
+                    .style("text-anchor", "end");
 
                 function update(){
             
