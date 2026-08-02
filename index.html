@@ -8,6 +8,20 @@
                 fill: none;
                 stroke: black;
             }
+
+            #body_type_chart {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
+
+            #mpg_chart {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
         </style>
     </head>
     <body onload='init()'>
@@ -94,33 +108,8 @@
                     .domain(series.map(d => d.key))
                     .range(d3.schemeTableau10)
 
-                const x = d3.scaleBand().domain(
-                    [2000,
-                     2001,
-                     2002,
-                     2003,
-                     2004,
-                     2005,
-                     2006,
-                     2007,
-                     2008,
-                     2009,
-                     2010,
-                     2011,
-                     2012,
-                     2013,
-                     2014,
-                     2015,
-                     2016,
-                     2017,
-                     2018,
-                     2019,
-                     2020,
-                     2021,
-                     2022,
-                     2023,
-                     2024,
-                     2025]).range([0, width]);
+                const x = d3.scaleLinear().domain(
+                    [2000,2025]).range([0, width]);
                 const y = d3.scaleLinear().domain([0, 1]).range([height, 0]);
 
                 body_graph.append("g")
