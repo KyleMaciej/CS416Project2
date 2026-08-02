@@ -35,7 +35,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              width: 100%;
+              width: 30%;
             }
 
             .header-center {
@@ -219,7 +219,7 @@
                         name: "Average MPG",
                         values: mpg_data.map(d => ({
                           year: +d.Year,
-                          val: +d.Mean_Cmb_MPG
+                          val: +d.Mean_Cmb_MPG_standard
                         }))
                     },
                     {
@@ -227,7 +227,7 @@
                         name: "Percent of Electric Vehicles",
                         values: percent_electric_data.map(d => ({
                           year: +d.Year,
-                          val: +d.percent_electric
+                          val: +d.percent_electric_standard
                         }))
                     },
                     {
@@ -235,7 +235,7 @@
                         name: "Count Model Type",
                         values: count_models_data.map(d => ({
                           year: +d.Year,
-                          val: +d.count_models
+                          val: +d.count_models_standard
                         }))
                     },
                     {
@@ -243,7 +243,7 @@
                         name: "Greenhouse Score",
                         values: greenhouse_score_data.map(d => ({
                           year: +d.Year,
-                          val: +d.greenhouse_score
+                          val: +d.greenhouse_score_standard
                         }))
                     },
                     {
@@ -251,7 +251,7 @@
                         name: "Average Gas Price",
                         values: average_gas_price_data.map(d => ({
                           year: +d.Year,
-                          val: +d.Average_Gas_Price
+                          val: +d.Average_Gas_Price_standard
                         }))
                     },
                 ]
