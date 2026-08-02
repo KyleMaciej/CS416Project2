@@ -256,10 +256,10 @@
             
                     // If the box is check, I show the group
                     if(cb.property("checked")){
-                      svg.selectAll("."+grp).transition().duration(1000).style("opacity", 1);
+                      user_interface_graph.selectAll("."+grp).transition().duration(1000).style("opacity", 1);
                     // Otherwise I hide it
                     }else{
-                      svg.selectAll("."+grp).transition().duration(1000).style("opacity", 0);
+                      user_interface_graph.selectAll("."+grp).transition().duration(1000).style("opacity", 0);
                     }
                   })
                 }
