@@ -29,6 +29,13 @@
               align-items: center;
               width: 100%;
             }
+
+            #user_checkboxes {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
         </style>
     </head>
     <body onload='init()'>
@@ -127,7 +134,7 @@
                     d => d.veh_class
                 );
                 
-                const series = d3.stack()
+                const series = d3.stack() // https://d3js.org/d3-shape/stack
                     .keys(d3.union(body_type_data.map(d => d.veh_class)))
                     .value(([year, group], key) => group.get(key)?.[0]?.proportion || 0)
                     .order(d3.stackOrderAscending)
@@ -163,16 +170,50 @@
 
                 console.log("6. Second graph initialized")
 
-                // User Interface Graphic
+                // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
-                //const user_interface_data = [
-                //    {
-                //        
-                //    },
-                //    {
-                //    
-                //   },
-                //]
+                const user_interface_data = [
+                    {
+                        id: "mpg_data",
+                        name: "Average MPG",
+                        values: mpg_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.Mean_Cmb_MPG
+                        }))
+                    },
+                    {
+                        id: "percent_electric",
+                        name: "Percent of Electric Vehicles",
+                        values: percent_electric_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.percent_electric
+                        }))
+                    },
+                    {
+                        id: "count_models",
+                        name: "Count Model Type",
+                        values: count_models_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.count_models
+                        }))
+                    },
+                    {
+                        id: "greenhouse_score",
+                        name: "Greenhouse Score",
+                        values: body_type_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.greenhouse_score
+                        }))
+                    },
+                    {
+                        id: "average_gas_price",
+                        name: "Average Gas Price",
+                        values: body_type_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.Average_Gas_Price
+                        }))
+                    },
+                ]
                 
 
                 const user_interface_graph = d3.select('#user_graphic')
