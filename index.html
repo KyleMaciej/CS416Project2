@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <script src='https://d3js.org/d3.v6.min.js'></script>
+        <title>United States Cars: What's Changed in 25 Years?</title>
         <style> 
             line {
                 fill: none;
@@ -36,10 +37,28 @@
               align-items: center;
               width: 100%;
             }
+
+            .centered-paragraph-block {
+                text-align: center;
+            }
+            .centered-paragraph-block p {
+                display: inline-block;
+                text-align: right;
+                width: 100%;      
+                margin: 0 0 10px;  
+            }
+            
         </style>
     </head>
     <body onload='init()'>
 
+        <div class="centered-paragraph-block">
+            <p>
+                The automobile industry has changed a lot over the past 25 years. From changes required by the United States government, to trends and interests set by the consumer, the car market at changed a lot. Looking at data from the U.S. Department of energy, it is easy to look at all the new models
+                offered by manufacturers to see what changes are occuring. Let's start with the government angle and the mandates pushed from them, while coinciding with changes and advances in technology: Fuel efficiency. In 2007, President George W. Bush signed the Energy and Independence and Secuirty act,
+                which mandated that car manufactures increase the efficiency of their vehicles they created, aiming for vehicles to have an average miles per gallon (MPG) by 2020. 
+            </p>
+        </div>
         <div id="mpg_chart"></div>
         <div id="body_type_chart"></div>
         <div id="user_graphic"></div>
