@@ -237,7 +237,7 @@
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
                     .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
 
-                user_interface_graph.selectAll("UserLines")
+                user_interface_graph.selectAll(".user-line")
                     .data(user_interface_data)
                     .join("path")
                         .attr("class", d => d.id)
