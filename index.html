@@ -222,7 +222,7 @@
                     .attr("height", height + margin * 2);
 
                 //Reusing xScale
-                const user_y_scale = scaleLinear().domain([0,100]).range([height, 0]);
+                const user_y_scale = d3.scaleLinear().domain([0,100]).range([height, 0]);
 
                 const user_color = d3.scaleOrdinal()
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
