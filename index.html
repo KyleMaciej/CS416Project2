@@ -115,7 +115,7 @@
 
                 const mpg_graph = d3.select('#mpg_chart')
                     .append('svg')
-                    .attr("width", width + margin * 2)
+                    .attr("width", width + margin * 2 + 100)
                     .attr("height", height + margin * 2);
 
                 const lineGenerator = d3.line()
@@ -215,7 +215,7 @@
                     .attr("class", "legend")
                     .attr("transform", `translate(${width + margin + 20}, ${margin})`);
                 
-                const body_legend_items = legend.selectAll(".legend-item")
+                const body_legend_items = body_legend.selectAll(".legend-item")
                     .data(uniqueBodyLabels)
                     .join("g")
                         .attr("class", "legend-item")
