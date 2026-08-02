@@ -221,10 +221,11 @@
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
 
+                const user_y_scale = d3.scaleLinear().domain([0, 10]).range([height, 0]);
                 //Reusing xScale
                 const user_line = d3.line()
                     .x(d => x(d.year))
-                    .y(d => y(d.val));
+                    .y(d => user_y_scale(d.val));
 
                 const user_color = d3.scaleOrdinal()
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
