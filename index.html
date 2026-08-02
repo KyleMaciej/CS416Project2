@@ -35,7 +35,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              width: 30%;
+              width: 100%;
             }
 
             .header-center {
@@ -68,11 +68,11 @@
         <div id="body_type_chart"></div>
         <div id="user_graphic"></div>
         <div id="user_checkboxes">
-            <input type="checkbox" class="checkbox" value="mpg_data" checked><label>Yearly Average MPG</label>
+            <input type="checkbox" class="checkbox" value="mpg_data"><label>Yearly Average MPG</label>
             <input type="checkbox" class="checkbox" value="electricity_data" checked><label>Percentage Electric Cars</label>
-            <input type="checkbox" class="checkbox" value="model_data" checked><label>Number of Car Models</label>
-            <input type="checkbox" class="checkbox" value="greenhouse_data" checked><label>Greenhouse Scores</label>
-            <input type="checkbox" class="checkbox" value="average_gas_data" checked><label>Average Gas Price</label>
+            <input type="checkbox" class="checkbox" value="model_data"><label>Number of Car Models</label>
+            <input type="checkbox" class="checkbox" value="greenhouse_data"><label>Greenhouse Scores</label>
+            <input type="checkbox" class="checkbox" value="average_gas_data"><label>Average Gas Price</label>
         </div>
         
         <script>
@@ -210,6 +210,30 @@
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
+
+                const body_legend = body_graph.append("g")
+                    .attr("class", "legend")
+                    .attr("transform", `translate(${width + margin + 20}, ${margin})`);
+                
+                const body_legend_items = legend.selectAll(".legend-item")
+                    .data(uniqueBodyLabels)
+                    .join("g")
+                        .attr("class", "legend-item")
+                        .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+                body_legend_items.append("rect")
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", 12)
+                    .attr("height", 12)
+                    .attr("fill", d => color(d));
+
+                body_legend_items.append("text")
+                    .attr("x", 18)
+                    .attr("y", 10)
+                    .text(d => d)
+                    .style("font-size", "12px")
+                    .style("alignment-baseline", "middle");
                 
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
@@ -262,7 +286,7 @@
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
 
-                const user_y_scale = d3.scaleLinear().domain([0, 10]).range([height, 0]);
+                const user_y_scale = d3.scaleLinear().domain([0, 1]).range([height, 0]);
                 //Reusing xScale
                 const user_line = d3.line()
                     .x(d => x(d.year))
