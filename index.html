@@ -222,20 +222,13 @@
                     .attr("height", height + margin * 2);
 
                 //Reusing xScale
-                const user_y_scale_left = d3.scaleLinear().range([height, 0]);
-                const user_y_scale_right = d3.scaleLinear().range([height, 0]);
-                
-                const user_line_right = d3.line()
+                const user_line = d3.line()
                     .x(d => x(d.year))
-                    .y(d => y(user_y_scale_right(d.val)));
-
-                const user_line_left = d3.line()
-                    .x(d => x(d.year))
-                    .y(d => y(user_y_scale_left(d.val)));
+                    .y(d => y(d.val));
 
                 const user_color = d3.scaleOrdinal()
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
-                    .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
+                    .range(["#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
 
                 user_interface_graph.selectAll(".user-line")
                     .data(user_interface_data)
@@ -244,79 +237,30 @@
                         .attr("fill", "none")
                         .attr("stroke-width", 2)
                         .attr("stroke", d => user_color(d.id))
+                        .attr("d", d -> user_line(d.values));
                         .style("opacity", 0);
 
-                let activeQueue = ["mpg_data", "electricity_data"];
-                
-                function update() {
-                    const leftSeries = user_interface_data.find(d => d.id === activeQueue[0]) || null;
-                    const rightSeries = user_interface_data.find(d => d.id === activeQueue[1]) || null;
-                
-                    // 1. Update Left Axis & Scale
-                    if (leftSeries) {
-                        user_y_scale_left.domain([0, d3.max(leftSeries.values, d => d.val) * 1.1]);
-                        leftAxisG.transition().duration(1000)
-                            .style("opacity", 1)
-                            .call(d3.axisLeft(user_y_scale_left));
-                        leftAxisG.selectAll("text, path, line").style("stroke", user_color(leftSeries.id));
-                    } else {
-                        leftAxisG.transition().duration(500).style("opacity", 0);
+                function update(){
+            
+                  // For each check box:
+                  d3.selectAll(".checkbox").each(function(d){
+                    const cb = d3.select(this);
+                    const grp = cb.property("value");
+            
+                    // If the box is check, I show the group
+                    if(cb.property("checked")){
+                      svg.selectAll("."+grp).transition().duration(1000).style("opacity", 1);
+                    // Otherwise I hide it
+                    }else{
+                      svg.selectAll("."+grp).transition().duration(1000).style("opacity", 0);
                     }
-                
-                    // 2. Update Right Axis & Scale
-                    if (rightSeries) {
-                        user_y_scale_right.domain([0, d3.max(rightSeries.values, d => d.val) * 1.1]);
-                        rightAxisG.transition().duration(1000)
-                            .style("opacity", 1)
-                            .call(d3.axisRight(user_y_scale_right));
-                        rightAxisG.selectAll("text, path, line").style("stroke", user_color(rightSeries.id));
-                    } else {
-                        rightAxisG.transition().duration(500).style("opacity", 0);
-                    }
-                
-                    // 3. Update Path Transitions
-                    user_interface_data.forEach(series => {
-                        const path = user_interface_graph.select("." + series.id);
-                
-                        if (series.id === activeQueue[0]) {
-                            path.transition().duration(1000)
-                                .style("opacity", 1)
-                                .attr("d", user_line_left(series.values));
-                        } else if (series.id === activeQueue[1]) {
-                            path.transition().duration(1000)
-                                .style("opacity", 1)
-                                .attr("d", user_line_right(series.values));
-                        } else {
-                            path.transition().duration(1000)
-                                .style("opacity", 0);
-                        }
-                    });
+                  })
                 }
-                
-                // Event listener for checkboxes using FIFO queueing
-                d3.selectAll(".checkbox").on("change", function() {
-                    const val = this.value;
-                    if (this.checked) {
-                        activeQueue.push(val);
-                        if (activeQueue.length > 2) {
-                            const removed = activeQueue.shift();
-                            d3.select(`.checkbox[value='${removed}']`).property("checked", false);
-                        }
-                    } else {
-                        activeQueue = activeQueue.filter(id => id !== val);
-                    }
-                    update();
-                });
-                
-                // Set default checked states on startup
-                d3.selectAll(".checkbox").each(function() {
-                    d3.select(this).property("checked", activeQueue.includes(this.value));
-                });
-                
-                // Initial draw
+
+                d3.selectAll(".checkbox").on("change",update);
+            
                 update();
 
-                
             }
         </script>
     </body>
