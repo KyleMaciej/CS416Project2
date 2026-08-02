@@ -200,7 +200,7 @@
                     {
                         id: "greenhouse_data",
                         name: "Greenhouse Score",
-                        values: body_type_data.map(d => ({
+                        values: greenhouse_score_data.map(d => ({
                           year: +d.Year,
                           val: +d.greenhouse_score
                         }))
@@ -208,7 +208,7 @@
                     {
                         id: "average_gas_data",
                         name: "Average Gas Price",
-                        values: body_type_data.map(d => ({
+                        values: average_gas_price_data.map(d => ({
                           year: +d.Year,
                           val: +d.Average_Gas_Price
                         }))
