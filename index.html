@@ -38,12 +38,16 @@
               width: 100%;
             }
 
+            .header-center {
+                text-align: center;
+            }
+
             .centered-paragraph-block {
                 text-align: center;
             }
             .centered-paragraph-block p {
                 display: inline-block;
-                text-align: right;
+                text-align: left;
                 width: 30%;      
                 margin: 0 0 10px;  
             }
@@ -52,6 +56,7 @@
     </head>
     <body onload='init()'>
 
+        <h1 class ="header-center">United States Cars: What's Changed in 25 Years?</h1>
         <div class="centered-paragraph-block">
             <p>
                 The automobile industry has changed a lot over the past 25 years. From changes required by the United States government, to trends and interests set by the consumer, the car market at changed a lot. Looking at data from the U.S. Department of energy, it is easy to look at all the new models
@@ -275,6 +280,7 @@
                         .attr("stroke-width", 2)
                         .attr("stroke", d => user_color(d.id))
                         .attr("d", d => user_line(d.values))
+                        .attr("transform", "translate("+margin+","+margin+")")
                         .style("opacity", 0);
 
                 user_interface_graph.append('g')
