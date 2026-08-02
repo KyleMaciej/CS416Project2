@@ -22,12 +22,27 @@
               align-items: center;
               width: 100%;
             }
+            
+            #user_graphic {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
         </style>
     </head>
     <body onload='init()'>
 
         <div id="mpg_chart"></div>
         <div id="body_type_chart"></div>
+        <div id="user_graphic"></div>
+        <div id="user_checkboxes">
+            <input type="checkbox" class="checkbox" value="mpg_data" checked><label>Yearly Average MPG</label>
+            <input type="checkbox" class="checkbox" value="electricity_data" checked><label>Percentage Electric Cars</label>
+            <input type="checkbox" class="checkbox" value="model_data" checked><label>Number of Car Models</label>
+            <input type="checkbox" class="checkbox" value="greenhouse_data" checked><label>Greenhouse Scores</label>
+            <input type="checkbox" class="checkbox" value="average_gas_data" checked><label>Average Gas Price</label>
+        </div>
         
         <script>
             async function init() {
@@ -40,6 +55,22 @@
 
                 const body_type_data = await d3.csv(
                     "clean_data/body_type_proportion_per_year.csv"
+                )
+
+                const percent_electric_data = await d3.csv(
+                    "clean_data/percent_electric.csv"
+                )
+
+                const count_models_data await d3.csv(
+                    "clean_data/count_models.csv"
+                )
+
+                const greenhouse_score_data await d3.csv(
+                    "clean_data/greenhouse_score.csv"
+                )
+
+                const average_gas_price_data await d3.csv( // https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0_pte_nus_dpg&f=a
+                    "clean_data/yearly_average_gas_price.csv"
                 )
 
                 const width = 200;
@@ -151,6 +182,23 @@
                         .attr("width", x.bandwidth());
 
                 console.log("6. Second graph initialized")
+
+                // User Interface Graphic
+
+                //const user_interface_data = [
+                //    {
+                //        
+                //    },
+                //    {
+                //    
+                //   },
+                //]
+                
+
+                const body_graph = d3.select('#user_graphic')
+                    .append('svg')
+                    .attr("width", width + margin * 2)
+                    .attr("height", height + margin * 2);
                 
             }
         </script>
