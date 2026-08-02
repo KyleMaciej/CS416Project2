@@ -136,9 +136,20 @@
                     .order(d3.stackOrderAscending)
                     (groupedData);
 
+                const uniqueBodyLabels = [...new Set(body_type_data.map(d => d.veh_class))];
                 const color = d3.scaleOrdinal()
-                    .domain(series.map(d => d.key))
-                    .range(d3.schemeTableau10)
+                    .domain(uniqueBodyLabels)
+                    .range([
+                        "#4269d0",
+                        "#9c6b4e",
+                        "#97bbf5",
+                        "#a463f2",
+                        "#ff8ab7",
+                        "#3ca951",
+                        "#6cc5b0",
+                        "#ff725c",
+                        "#efb118"
+                    ])
 
                 const x = d3.scaleBand().domain(
                     [2000, 2001, 2002, 2003, 2004,
@@ -148,8 +159,6 @@
                      2020, 2021, 2022, 2023, 2024,
                      2025]).range([0, width]);
                 const y = d3.scaleLinear().domain([0, 1]).range([height, 0]);
-
-                const uniqueBodyLabels = [...new Set(body_type_data.map(d => d.veh_class))];
 
                 body_graph.append("g")
                     .selectAll("g")
@@ -176,6 +185,8 @@
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
 
+                const legend = svg.append("g")
+                      .attr("transform", "translate(20, 20)");
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
                 const user_interface_data = [
