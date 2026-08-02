@@ -94,8 +94,6 @@
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
 
-                console.log("3. Initial mpg chart");
-
                 const lineGenerator = d3.line()
                     .x(d => xScale(d.Year))
                     .y(d => yScale(d.Mean_Cmb_MPG));
@@ -107,8 +105,6 @@
                     .attr("stroke-width", 1.5)
                     .attr("transform", "translate("+margin+","+margin+")")
                     .attr("d", lineGenerator);
-
-                console.log("4. Initial mpg chart");
 
                 mpg_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + margin + ")")
@@ -140,8 +136,6 @@
                     .order(d3.stackOrderAscending)
                     (groupedData);
 
-                console.log("5. series initiated")
-
                 const color = d3.scaleOrdinal()
                     .domain(series.map(d => d.key))
                     .range(d3.schemeTableau10)
@@ -168,7 +162,16 @@
                         .attr("height", d => y(d[0]) - y(d[1]))
                         .attr("width", x.bandwidth());
 
-                console.log("6. Second graph initialized")
+                body_graph.append('g')
+                    .attr("transform", "translate(" + margin + "," + margin + ")")
+                    .call(d3.axisLeft(y));
+
+                body_graph.append('g')
+                    .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                    .attr("transform", "rotate(-45)")
+                    .style("text-anchor", "end");
 
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
