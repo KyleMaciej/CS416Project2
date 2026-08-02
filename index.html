@@ -182,7 +182,7 @@
                         }))
                     },
                     {
-                        id: "percent_electric",
+                        id: "electricity_data",
                         name: "Percent of Electric Vehicles",
                         values: percent_electric_data.map(d => ({
                           year: +d.Year,
@@ -190,7 +190,7 @@
                         }))
                     },
                     {
-                        id: "count_models",
+                        id: "model_data",
                         name: "Count Model Type",
                         values: count_models_data.map(d => ({
                           year: +d.Year,
@@ -198,7 +198,7 @@
                         }))
                     },
                     {
-                        id: "greenhouse_score",
+                        id: "greenhouse_data",
                         name: "Greenhouse Score",
                         values: body_type_data.map(d => ({
                           year: +d.Year,
@@ -206,7 +206,7 @@
                         }))
                     },
                     {
-                        id: "average_gas_price",
+                        id: "average_gas_data",
                         name: "Average Gas Price",
                         values: body_type_data.map(d => ({
                           year: +d.Year,
@@ -220,6 +220,51 @@
                     .append('svg')
                     .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
+
+                //Reusing xScale
+                const user_y_scale = scaleLinear().domain([0,100]).range([height, 0]);
+
+                const user_color = d3.scaleOrdinal()
+                    .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
+                    .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"])
+
+                const user_line = d3.line()
+                    .x(d => x(d.year))
+                    .y(d => y(d.val));
+
+                user_interface_graph.selectAll("UserLines")
+                    .data(user_interface_data)
+                    .join("path")
+                        .attr("class", d => d.id)
+                        .attr("fill", "none")
+                        .attr("stroke-width", 1.5)
+                        .attr("stroke", d => user_color(d.id))
+                        .attr("d", d => user_line(d.values));
+
+
+                function update(){
+
+                    d3.selectAll(".checkbox").each(function(d){
+                        cb = d3.select(this);
+                        grp = cb.property("value")
+
+                        if (cb.property("checked")) {
+                            user_interface_graph.selectAll("." + grp)
+                                .transition()
+                                .duration(1000)
+                                .style("opacity", 1);
+                        } else {
+                            user_interface_graph.selectAll("." + grp)
+                                .transition()
+                                .duration(1000)
+                                .style("opacity", 0);
+                        }
+                    })
+                }
+
+                d3.selectAll(".checkbox").on("change", update);
+                update();
+
                 
             }
         </script>
