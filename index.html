@@ -226,7 +226,7 @@
 
                 const user_color = d3.scaleOrdinal()
                     .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
-                    .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"])
+                    .range([ "#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
 
                 const user_line = d3.line()
                     .x(d => x(d.year))
