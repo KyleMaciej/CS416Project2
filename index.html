@@ -104,7 +104,7 @@
                     "clean_data/yearly_average_gas_price.csv"
                 )
 
-                const width = 200;
+                const width = 400;
                 const height = 200;
                 const margin = 50;
 
@@ -145,7 +145,7 @@
 
                 const body_graph = d3.select('#body_type_chart')
                     .append('svg')
-                    .attr("width", width + margin * 2)
+                    .attr("width", width + margin * 2 + 150)
                     .attr("height", height + margin * 2);
 
                 const groupedData = d3.group(
@@ -334,6 +334,8 @@
                 d3.selectAll(".checkbox").on("change",update);
             
                 update();
+
+                
 
             }
         </script>
