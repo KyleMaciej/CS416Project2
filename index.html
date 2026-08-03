@@ -148,6 +148,15 @@
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
 
+                const annotations = [{
+                    note: { label: "Test", title: "" },
+                    x: 150, y: 100, dy: 40, dx: 40
+                }];
+                const makeAnnotations = d3.annotation().annotations(annotations);
+
+                mpg_graph.append("g")
+                    .call(makeAnnotations);
+
                 // Stacked Barchart Graph
 
                 const body_graph = d3.select('#body_type_chart')
