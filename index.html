@@ -344,54 +344,77 @@
 
                 const tooltip = d3.select("body")
                     .append("div")
+                    .attr("id", "chart-tooltip")
                     .style("position", "absolute")
                     .style("visibility", "hidden")
-                    .style("background", "white")
-                    .style("border", "1px solid #ccc")
-                    .style("padding", "8px")
+                    .style("background", "#ffffff")
+                    .style("border", "1px solid #333")
+                    .style("padding", "8px 12px")
                     .style("border-radius", "4px")
                     .style("pointer-events", "none")
-                    .style("font-size", "12px");
+                    .style("font-size", "12px")
+                    .style("box-shadow", "0px 4px 8px rgba(0,0,0,0.15)")
+                    .style("z-index", "99999");
 
-                user_interface_graph.selectAll("g")
-                    .selectAll(".hover-rect")
-                    .data(years)
-                    .join("rect")
-                        .attr("class", "hover-rect")
-                        .attr("x", d => xScale(d) - 10)
-                        .attr("y", margin)
-                        .attr("width", 20) 
-                        .attr("height", height)
-                        .attr("fill", "rgba(255,0,0,0.2)")
-                        .style("cursor", "pointer")
-                        .on("mouseover", (event, year) => {
-                            const checkedIDs = [];
-                            d3.selectAll(".checkbox").each(function() {
-                                if (d3.select(this).property("checked")) {
-                                    checkedIDs.push(d3.select(this).property("value"));
-                                }
-                            });
+            // 2. Resolve active X scale and unique years
+            const activeXScale = (typeof xScale !== "undefined") ? xScale : x;
+            const years = mpg_data.map(d => +d.Year);
+            
+            user_interface_graph.append("rect")
+                .attr("class", "chart-hover-overlay")
+                .attr("x", margin)
+                .attr("y", margin)
+                .attr("width", width)
+                .attr("height", height)
+                .attr("fill", "transparent")
+                .style("pointer-events", "all")
+                .style("cursor", "pointer")
+                .on("mouseover", () => tooltip.style("visibility", "visible"))
+                .on("mouseout", () => tooltip.style("visibility", "hidden"))
+                .on("mousemove", function(event) {
+                    const [pointerX] = d3.pointer(event, this);
+
+                    let hoveredYear;
                     
-                            let content = `<strong>Year: ${year}</strong><br/>`;
-                    
-                            user_interface_data.forEach(series => {
-                                if (checkedIDs.includes(series.id)) {
-                                    const yearData = series.values.find(v => v.year === year);
-                                    const val = yearData ? yearData.val.toFixed(2) : "N/A";
-                                    content += `<span style="color:${user_color(series.id)}">■</span> ${series.name}: ${val}<br/>`;
-                                }
-                            });
-                    
-                            tooltip.html(content).style("visibility", "visible");
-                        })
-                        .on("mousemove", (event) => {
-                            tooltip
-                                .style("top", (event.pageY - 10) + "px")
-                                .style("left", (event.pageX + 15) + "px");
-                        })
-                        .on("mouseout", () => {
-                            tooltip.style("visibility", "hidden");
-                        });
+                    if (activeXScale.invert) {
+                        const approxYear = Math.round(activeXScale.invert(pointerX));
+                        hoveredYear = years.reduce((prev, curr) => 
+                            Math.abs(curr - approxYear) < Math.abs(prev - approxYear) ? curr : prev
+                        );
+                    } else {
+                        const step = width / years.length;
+                        const index = Math.min(Math.floor(pointerX / step), years.length - 1);
+                        hoveredYear = years[Math.max(0, index)];
+                    }
+                    const checkedIDs = [];
+                    d3.selectAll(".checkbox").each(function() {
+                        if (d3.select(this).property("checked")) {
+                            checkedIDs.push(d3.select(this).property("value"));
+                        }
+                    });
+            
+                    if (checkedIDs.length === 0) {
+                        tooltip.style("visibility", "hidden");
+                        return;
+                    }
+            
+                    let html = `<strong>Year: ${hoveredYear}</strong><br/>`;
+            
+                    user_interface_data.forEach(series => {
+                        if (checkedIDs.includes(series.id)) {
+                            const match = series.values.find(v => v.year === hoveredYear);
+                            const val = match ? match.val.toFixed(2) : "N/A";
+                            html += `<div style="color:${user_color(series.id)}; margin-top:2px;">■ ${series.name}: <strong>${val}</strong></div>`;
+                        }
+                    });
+            
+                    // Move and render tooltip
+                    tooltip
+                        .html(html)
+                        .style("visibility", "visible")
+                        .style("top", (event.pageY - 15) + "px")
+                        .style("left", (event.pageX + 15) + "px");
+                });
                 
 
             }
