@@ -73,6 +73,13 @@
             </p>
         </div>
         <div id="body_type_chart"></div>
+        <div class="centered-paragraph-block">
+            <p>
+                With the previous visualizations in mind, this is just the tip of the iceberg when it comes to the changes that have occured to vehicles over the past 25 years. Below is another visualization that you can use to investigate multiple different changes that have occured over the past 25 years,
+                with some factors being completely external to specifications on vehicles. All of the visualizations are standardized, so you can look at trends and correlations of these different factors. For specific information, highlight over the graphic and you will get the in-depth details for that year
+                for all the measures you are looking at.
+            </p>
+        </div>
         <div id="user_graphic"></div>
         <div id="user_checkboxes">
             <input type="checkbox" class="checkbox" value="mpg_data"><label>Yearly Average MPG</label>
@@ -262,7 +269,7 @@
                         .attr("class", "legend-item")
                         .attr("transform", (d, i) => `translate(0, ${i * 20})`);
     
-                 body_legend_items.append("text")
+                 body_graph.append("text")
                     .attr("x", margin + width / 2)
                     .attr("y", height + margin + 35)
                     .attr("text-anchor", "middle")
@@ -271,7 +278,7 @@
                     .style("fill", "#333333")
                     .text("Year");
 
-                body_legend_items.append("text")
+                body_graph.append("text")
                     .attr("x", -(margin + height / 2))
                     .attr("y", margin - 35)
                     .attr("transform", "rotate(-90)")
@@ -391,7 +398,7 @@
 
                 user_interface_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
-                    .call(d3.axisBottom(xScale))
+                    .call(d3.axisBottom(xScale).tickFormat(d3.format('d')))
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
