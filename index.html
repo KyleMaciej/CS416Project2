@@ -115,7 +115,7 @@
 
                 const mpg_graph = d3.select('#mpg_chart')
                     .append('svg')
-                    .attr("width", width + margin * 2 + 100)
+                    .attr("width", width + margin * 2)
                     .attr("height", height + margin * 2);
 
                 const lineGenerator = d3.line()
@@ -321,10 +321,8 @@
                     const cb = d3.select(this);
                     const grp = cb.property("value");
             
-                    // If the box is check, I show the group
                     if(cb.property("checked")){
                       user_interface_graph.selectAll("."+grp).transition().duration(1000).style("opacity", 1);
-                    // Otherwise I hide it
                     }else{
                       user_interface_graph.selectAll("."+grp).transition().duration(1000).style("opacity", 0);
                     }
@@ -335,6 +333,47 @@
             
                 update();
 
+                const years = mpg_data.map(d => +d.Year);
+
+                user_interface_graph.selectAll("rect"),
+                    .selectAll(".hover-rect")
+                    .data(years)
+                    .join("rect")
+                        .attr("class", "hover-rect")
+                        .attr("x", d => xScale(d) - 10)
+                        .attr("y", margin)
+                        .attr("width", 20) 
+                        .attr("height", height)
+                        .attr("fill", "transparent")
+                        .style("cursor", "pointer")
+                        .on("mouseover", (event, year) => {
+                            const checkedIDs = [];
+                            d3.selectAll(".checkbox").each(function() {
+                                if (d3.select(this).property("checked")) {
+                                    checkedIDs.push(d3.select(this).property("value"));
+                                }
+                            });
+                    
+                            let content = `<strong>Year: ${year}</strong><br/>`;
+                    
+                            user_interface_data.forEach(series => {
+                                if (checkedIDs.includes(series.id)) {
+                                    const yearData = series.values.find(v => v.year === year);
+                                    const val = yearData ? yearData.val.toFixed(2) : "N/A";
+                                    content += `<span style="color:${user_color(series.id)}">■</span> ${series.name}: ${val}<br/>`;
+                                }
+                            });
+                    
+                            tooltip.html(content).style("visibility", "visible");
+                        })
+                        .on("mousemove", (event) => {
+                            tooltip
+                                .style("top", (event.pageY - 10) + "px")
+                                .style("left", (event.pageX + 15) + "px");
+                        })
+                        .on("mouseout", () => {
+                            tooltip.style("visibility", "hidden");
+                        });
                 
 
             }
