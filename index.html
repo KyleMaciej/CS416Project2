@@ -60,7 +60,7 @@
         <div class="centered-paragraph-block">
             <p>
                 The automobile industry has changed a lot over the past 25 years. From changes required by the United States government, to trends and interests set by the consumer, the car market at changed a lot. Looking at data from the U.S. Department of energy, it is easy to look at all the new models
-                offered by manufacturers to see what changes are occuring. Let's start with the government angle and the mandates pushed from them, while coinciding with changes and advances in technology: Fuel efficiency. In 2007, President George W. Bush signed the Energy and Independence and Secuirty act,
+                offered by manufacturers to see what changes are occuring. Let's start with the government angle and the mandates pushed from them, while coinciding with changes and advances in technology: Fuel efficiency. In 2007, President George W. Bush signed the Energy and Independence and Security Act,
                 which mandated that car manufactures increase the efficiency of their vehicles they created, aiming for vehicles to have an average miles per gallon (MPG) by 2020. 
             </p>
         </div>
@@ -148,14 +148,14 @@
                     .attr("transform", "rotate(-45)")
                     .style("text-anchor", "end");
 
-                const annotations = [{
-                    note: { label: "Test", title: "" },
-                    x: 150, y: 100, dy: 40, dx: 40
-                }];
-                const makeAnnotations = d3.annotation().annotations(annotations);
-
-                mpg_graph.append("g")
-                    .call(makeAnnotations);
+                mpg_graph.append("text")
+                    .attr("x", xScale(2020) + margin)
+                    .attr("y", yScale(26.149) + margin)
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "12px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("2007 Energy and Independence and Security Act Deadline");
 
                 // Stacked Barchart Graph
 
