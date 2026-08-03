@@ -346,7 +346,7 @@
                     .style("pointer-events", "none")
                     .style("font-size", "12px");
 
-                user_interface_graph.selectAll("rect"),
+                user_interface_graph.selectAll("g")
                     .selectAll(".hover-rect")
                     .data(years)
                     .join("rect")
