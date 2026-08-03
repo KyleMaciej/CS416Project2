@@ -65,6 +65,13 @@
             </p>
         </div>
         <div id="mpg_chart"></div>
+        <div class="centered-paragraph-block">
+            <p>
+                A major factor in driving MPG is the type of vehicle driven. In addition to the U.S. government mandating an increase in the MPG of vehicles driven, customers also get a say in what vehicles get made by voting with their wallet. Customers taste is also fickle, and can change rapidly from year
+                to year. With that factor, if customers start to favor vehicles that historically do not get good gas mileage (Trucks, Large SUVs, etc.), that will also lead to less average MPG for vehicles customers are driving. To follow-up on the average MPG of cars being manufactured, and to give a voice
+                to the customer, the next graph shows the change in proportion of vehicles being made and sold in the U.S. over the last 25 years.
+            </p>
+        </div>
         <div id="body_type_chart"></div>
         <div id="user_graphic"></div>
         <div id="user_checkboxes">
@@ -355,7 +362,7 @@
                         .attr("y", margin)
                         .attr("width", 20) 
                         .attr("height", height)
-                        .attr("fill", "transparent")
+                        .attr("fill", "rgba(255,0,0,0.2)")
                         .style("cursor", "pointer")
                         .on("mouseover", (event, year) => {
                             const checkedIDs = [];
