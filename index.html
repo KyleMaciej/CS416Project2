@@ -225,7 +225,7 @@
 
                 body_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + margin + ")")
-                    .call(d3.axisLeft(y));
+                    .call(d3.axisLeft(y).tickFormat(d3.format(".0%")));
 
                 body_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
