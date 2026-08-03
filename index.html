@@ -85,7 +85,7 @@
             <input type="checkbox" class="checkbox" value="mpg_data"><label>Yearly Average MPG</label>
             <input type="checkbox" class="checkbox" value="electricity_data" checked><label>Percentage Electric Cars</label>
             <input type="checkbox" class="checkbox" value="model_data"><label>Number of Car Models</label>
-            <input type="checkbox" class="checkbox" value="greenhouse_data"><label>Greenhouse Scores</label>
+            <input type="checkbox" class="checkbox" value="greenhouse_data"><label>Average Greenhouse Scores</label>
             <input type="checkbox" class="checkbox" value="average_gas_data"><label>Average Gas Price</label>
         </div>
         
@@ -363,7 +363,7 @@
                     },
                     {
                         id: "greenhouse_data",
-                        name: "Greenhouse Score",
+                        name: "Average Greenhouse Scores",
                         values: greenhouse_score_data.map(d => ({
                           year: +d.Year,
                           val: +d.greenhouse_score_standard
@@ -400,6 +400,13 @@
                     .y(d => user_y_scale(d.val));
 
                 const line_names = ["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"]
+                const line_name_alias = {
+                    "mpg_data": "Yearly Average MPG",
+                    "electricity_data": "Percentage Electric Cars", 
+                    "model_data": "Number of Car Models", 
+                    "greenhouse_data": "Average Greenhouse Scores",
+                    "average_gas_data": "Average Gas Price"
+                };
                 
                 const user_color = d3.scaleOrdinal()
                     .domain(line_names)
@@ -543,7 +550,7 @@
                 user_legend_items.append("text")
                     .attr("x", 18)
                     .attr("y", 10)
-                    .text(d => d)
+                    .text(d => labelAliases[d])
                     .style("font-size", "12px")
                     .style("alignment-baseline", "middle");
                 
