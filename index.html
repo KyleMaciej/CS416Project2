@@ -335,6 +335,17 @@
 
                 const years = mpg_data.map(d => +d.Year);
 
+                const tooltip = d3.select("body")
+                    .append("div")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background", "white")
+                    .style("border", "1px solid #ccc")
+                    .style("padding", "8px")
+                    .style("border-radius", "4px")
+                    .style("pointer-events", "none")
+                    .style("font-size", "12px")
+
                 user_interface_graph.selectAll("rect"),
                     .selectAll(".hover-rect")
                     .data(years)
