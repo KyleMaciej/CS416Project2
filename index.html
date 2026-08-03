@@ -335,8 +335,10 @@
                     .x(d => x(d.year))
                     .y(d => user_y_scale(d.val));
 
+                const line_names = ["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"]
+                
                 const user_color = d3.scaleOrdinal()
-                    .domain(["mpg_data", "electricity_data", "model_data", "greenhouse_data", "average_gas_data"])
+                    .domain(line_names)
                     .range(["#A559AA", "#59A89C", "#F0C571", "#E02B35", "#082A54"]);
 
                 user_interface_graph.selectAll(".user-line")
@@ -447,6 +449,30 @@
                             .style("top", (event.pageY - 15) + "px")
                             .style("left", (event.pageX + 15) + "px");
                     });
+
+                const user_legend = user_interface_graph.append("g")
+                    .attr("class", "legend")
+                    .attr("transform", `translate(${width + margin + 20}, ${margin})`);
+                
+                const user_legend_items = user_legend.selectAll(".legend-item")
+                    .data(line_names)
+                    .join("g")
+                        .attr("class", "legend-item")
+                        .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+                body_legend_items.append("rect")
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", 12)
+                    .attr("height", 12)
+                    .attr("fill", d => user_color(d));
+
+                body_legend_items.append("text")
+                    .attr("x", 18)
+                    .attr("y", 10)
+                    .text(d => d)
+                    .style("font-size", "12px")
+                    .style("alignment-baseline", "middle");
                 
 
             }
