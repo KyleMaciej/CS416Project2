@@ -497,14 +497,14 @@
                         .attr("class", "legend-item")
                         .attr("transform", (d, i) => `translate(0, ${i * 20})`);
 
-                body_legend_items.append("rect")
+                user_legend_items.append("rect")
                     .attr("x", 0)
                     .attr("y", 0)
                     .attr("width", 12)
                     .attr("height", 12)
                     .attr("fill", d => user_color(d));
 
-                body_legend_items.append("text")
+                user_legend_items.append("text")
                     .attr("x", 18)
                     .attr("y", 10)
                     .text(d => d)
