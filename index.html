@@ -166,9 +166,9 @@
 
                 mpg_graph.append("text")
                     .attr("x", margin + width / 2)
-                    .attr("y", height + margin + 50)
+                    .attr("y", height + margin + 35)
                     .attr("text-anchor", "middle")
-                    .style("font-size", "10px")
+                    .style("font-size", "12px")
                     .style("font-weight", "bold")
                     .style("fill", "#333333")
                     .text("Year");
@@ -178,7 +178,7 @@
                     .attr("y", margin - 35)
                     .attr("transform", "rotate(-90)")
                     .attr("text-anchor", "middle")
-                    .style("font-size", "10px")
+                    .style("font-size", "12px")
                     .style("font-weight", "bold")
                     .style("fill", "#333333")
                     .text("Average Vehicles MPG");
@@ -275,6 +275,25 @@
                     .text(d => d)
                     .style("font-size", "12px")
                     .style("alignment-baseline", "middle");
+
+                body_legend_items.append("text")
+                    .attr("x", margin + width / 2)
+                    .attr("y", height + margin + 35)
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "12px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Year");
+
+                body_legend_items.append("text")
+                    .attr("x", -(margin + height / 2))
+                    .attr("y", margin - 35)
+                    .attr("transform", "rotate(-90)")
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "12px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Percentage of Total Vehicles");
                 
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
