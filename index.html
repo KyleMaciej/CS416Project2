@@ -261,22 +261,8 @@
                     .join("g")
                         .attr("class", "legend-item")
                         .attr("transform", (d, i) => `translate(0, ${i * 20})`);
-
-                body_legend_items.append("rect")
-                    .attr("x", 0)
-                    .attr("y", 0)
-                    .attr("width", 12)
-                    .attr("height", 12)
-                    .attr("fill", d => color(d));
-
-                body_legend_items.append("text")
-                    .attr("x", 18)
-                    .attr("y", 10)
-                    .text(d => d)
-                    .style("font-size", "12px")
-                    .style("alignment-baseline", "middle");
-
-                body_legend_items.append("text")
+    
+                 body_legend_items.append("text")
                     .attr("x", margin + width / 2)
                     .attr("y", height + margin + 35)
                     .attr("text-anchor", "middle")
@@ -294,7 +280,21 @@
                     .style("font-weight", "bold")
                     .style("fill", "#333333")
                     .text("Percentage of Total Vehicles");
-                
+
+                body_legend_items.append("rect")
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", 12)
+                    .attr("height", 12)
+                    .attr("fill", d => color(d));
+
+                body_legend_items.append("text")
+                    .attr("x", 18)
+                    .attr("y", 10)
+                    .text(d => d)
+                    .style("font-size", "12px")
+                    .style("alignment-baseline", "middle");
+
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
                 const user_interface_data = [
