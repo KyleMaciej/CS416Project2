@@ -164,6 +164,24 @@
                     .style("fill", "#333333")
                     .text("2007 Energy and Independence and Security Act Deadline");
 
+                mpg_graph.append("text")
+                    .attr("x", margin + width / 2)
+                    .attr("y", height + margin + 50)
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "10px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Year");
+
+                mpg_graph.append("text")
+                    .attr("x", -(margin + height / 2))
+                    .attr("y", margin - 35)
+                    .attr("transform", "rotate(-90)")
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "10px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Average Vehicles MPG");
                 // Stacked Barchart Graph
 
                 const body_graph = d3.select('#body_type_chart')
