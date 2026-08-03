@@ -251,6 +251,10 @@
                         values: mpg_data.map(d => ({
                           year: +d.Year,
                           val: +d.Mean_Cmb_MPG_standard
+                        })),
+                        toolbox_values: mpg_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.Mean_Cmb_MPG
                         }))
                     },
                     {
@@ -259,6 +263,10 @@
                         values: percent_electric_data.map(d => ({
                           year: +d.Year,
                           val: +d.percent_electric_standard
+                        })),
+                        toolbox_values: percent_electric_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.percent_electric
                         }))
                     },
                     {
@@ -267,6 +275,10 @@
                         values: count_models_data.map(d => ({
                           year: +d.Year,
                           val: +d.count_models_standard
+                        })),
+                        toolbox_values: count_models_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.count_models
                         }))
                     },
                     {
@@ -275,6 +287,10 @@
                         values: greenhouse_score_data.map(d => ({
                           year: +d.Year,
                           val: +d.greenhouse_score_standard
+                        })),
+                        toolbox_values: greenhouse_score_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.greenhouse_score
                         }))
                     },
                     {
@@ -283,6 +299,10 @@
                         values: average_gas_price_data.map(d => ({
                           year: +d.Year,
                           val: +d.Average_Gas_Price_standard
+                        })),
+                        toolbox_values: average_gas_price_data.map(d => ({
+                          year: +d.Year,
+                          val: +d.Average_Gas_Price
                         }))
                     },
                 ]
@@ -396,10 +416,10 @@
                         }
                 
                         let html = `<strong>Year: ${hoveredYear}</strong><br/>`;
-                
+                        // NEED TO UPDATE THIS SECTION
                         user_interface_data.forEach(series => {
                             if (checkedIDs.includes(series.id)) {
-                                const match = series.values.find(v => v.year === hoveredYear);
+                                const match = series.toolbox_values.find(v => v.year === hoveredYear);
                                 const val = match ? match.val.toFixed(2) : "N/A";
                                 html += `<div style="color:${user_color(series.id)}; margin-top:2px;">■ ${series.name}: <strong>${val}</strong></div>`;
                             }
