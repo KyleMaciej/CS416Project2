@@ -189,6 +189,17 @@
                     .style("font-weight", "bold")
                     .style("fill", "#333333")
                     .text("Average Vehicles MPG");
+
+                mpg_graph.append("text")
+                    .attr("x", margin + width / 2)
+                    .attr("y", margin /2 )
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Average MPG For Each Vehicle Sold in the U.S. Per Year");
+
+                
                 // Stacked Barchart Graph
 
                 const body_graph = d3.select('#body_type_chart')
@@ -301,6 +312,15 @@
                     .text(d => d)
                     .style("font-size", "12px")
                     .style("alignment-baseline", "middle");
+
+                body_graph.append("text")
+                    .attr("x", margin + width / 2)
+                    .attr("y", margin /2 )
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("font-weight", "bold")
+                    .style("fill", "#333333")
+                    .text("Percentage of Vehicles Sold By Body Type Per Year");
 
                 // User Interface Graphic https://d3-graph-gallery.com/graph/bubblemap_buttonControl.html
 
