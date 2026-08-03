@@ -143,10 +143,9 @@
 
                 mpg_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
-                    .call(d3.axisBottom(xScale))
+                    .call(d3.axisBottom(xScale).tickFormat(d3.format('d')))
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
-                    .tickFormat(d3.format('d'))
                     .style("text-anchor", "end");
 
                 mpg_graph.append("circle")
@@ -230,10 +229,9 @@
 
                 body_graph.append('g')
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
-                    .call(d3.axisBottom(x))
+                    .call(d3.axisBottom(x).tickFormat(d3.format('d')))
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
-                    .tickFormat(d3.format('d'))
                     .style("text-anchor", "end");
 
                 const body_legend = body_graph.append("g")
