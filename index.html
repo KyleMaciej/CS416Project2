@@ -149,10 +149,17 @@
                     .style("text-anchor", "end");
 
                 mpg_graph.append("text")
-                    .attr("x", xScale(2020) + margin)
-                    .attr("y", yScale(26.149) + margin)
+                    .attr("cx", xScale(2020) + margin)
+                    .attr("cy", yScale(26.149) + margin)
                     .attr("text-anchor", "middle")
-                    .style("font-size", "12px")
+                    .attr("r", 6)
+                    .attr("fill", "#E02B35");
+                
+                mpg_graph.append("text")
+                    .attr("x", xScale(2020) + margin)
+                    .attr("y", yScale(20) + margin)
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "8px")
                     .style("font-weight", "bold")
                     .style("fill", "#333333")
                     .text("2007 Energy and Independence and Security Act Deadline");
