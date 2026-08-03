@@ -146,6 +146,7 @@
                     .call(d3.axisBottom(xScale))
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
+                    .tickFormat(d3.format('d'))
                     .style("text-anchor", "end");
 
                 mpg_graph.append("circle")
@@ -232,6 +233,7 @@
                     .call(d3.axisBottom(x))
                     .selectAll("text")
                     .attr("transform", "rotate(-45)")
+                    .tickFormat(d3.format('d'))
                     .style("text-anchor", "end");
 
                 const body_legend = body_graph.append("g")
@@ -326,7 +328,7 @@
 
                 const user_interface_graph = d3.select('#user_graphic')
                     .append('svg')
-                    .attr("width", width + margin * 2)
+                    .attr("width", width + margin * 2 + 150)
                     .attr("height", height + margin * 2);
 
                 const user_y_scale = d3.scaleLinear().domain([0, 1]).range([height, 0]);
